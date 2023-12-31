@@ -183,7 +183,7 @@ def download_images(obj: list, imgcnt: int):
         img = requests.get(iurl,
                            headers = hdrs,
                            stream = True,
-                           timeout = 5)
+                           timeout = 5) # If you have too many timeouts, increase
 
         # Sometimes the filenames are too long.
         try:
