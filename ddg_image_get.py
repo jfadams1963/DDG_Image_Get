@@ -23,7 +23,7 @@ from typing import Dict
 
 
 
-# These will be set by your args -jfadams1963
+# Set these as needed -jfadams1963
 PAGES = 1
 IMAGES = 10
 
