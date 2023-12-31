@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 ddg_image_get.py
+Version jfadams1963
 A tool for downloading image sets from Duckduckgo.
 Based on https://github.com/joeyism/duckduckgo-images-api
 which was forked from
