@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ddg_image_get.py
-Duckduckgo image download module for TruFetch
+A tool for downloading image sets from Duckduckgo.
 Based on https://github.com/joeyism/duckduckgo-images-api
 which was forked from
 https://github.com/deepanprabhu/duckduckgo-images-api
@@ -15,31 +15,30 @@ import json
 import time # Used for sleep
 import datetime
 import shutil
+from random import randrange
 from datetime import date # Used for timestamp
-from python_settings import settings
 from typing import Dict
-sys.path.insert(0, settings.TF_HOME + '/lib')
-from TruFetch import get_random_line
 
 
 
-tf_home = settings.TF_HOME
 # Set these to your liking. -jfadams1963
 PAGES = 1
-IMAGES = 50
+IMAGES = 10
 
-terms = sys.argv[1]
 if len(sys.argv) != 2:
     print('Useage:')
     print('ddg_image_get.py <terms>')
     sys.exit(0)
+terms = sys.argv[1]
 
 
+
+# The search funciton
 def search(keywords: str, max_results=None) -> Dict:
     url = 'https://duckduckgo.com/'
     params = {'q': keywords}
 
-    with open(tf_home + 'lists/user_agents.txt') as f:
+    with open('user_agents.txt') as f:
         user_agent = get_random_line(f)[:-2]
 
     hdrs = {'user-agent': user_agent}
@@ -57,7 +56,7 @@ def search(keywords: str, max_results=None) -> Dict:
     #print('Obtained Token')
 
     # Let's use random user-agents for fun. -jfadams1963
-    with open(tf_home + 'lists/user_agents.txt') as f:
+    with open('user_agents.txt') as f:
         user_agent = get_random_line(f)[:-2]
 
     headers = {
@@ -119,6 +118,21 @@ def search(keywords: str, max_results=None) -> Dict:
 # End search
 
 
+# Function for grabing a random line from a text file
+def get_random_line(fname) -> str:
+    """
+    Return a random line from opened file fname
+    Uses reservoir sampling (with sample size of 1)
+    """
+    for l, aline in enumerate(fname, start=1):
+        if randrange(l) == 0:  # random int [0..l)
+            line = aline
+    return line
+# End get_random_line
+
+
+# Prints the list of URLs that would be downloaded
+# Good for testing
 def print_image_URLs(obj):
     """
     This will print a list of the URLs for testing.
@@ -128,6 +142,7 @@ def print_image_URLs(obj):
     print([r["image"] for r in obj["results"]])
 
 
+# The download function
 def download_images(obj: list, imgcnt: int):
     """
     Download and save each image from URLs in results object
@@ -147,7 +162,7 @@ def download_images(obj: list, imgcnt: int):
     for r in obj['results']:
         if imgcnt == 0:
             break
-        with open(tf_home + 'lists/user_agents.txt') as f:
+        with open('user_agents.txt') as f:
             user_agent = get_random_line(f)[:-2]
 
         hdrs = {'user-agent': user_agent}
