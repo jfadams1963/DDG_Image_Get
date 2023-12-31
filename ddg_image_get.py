@@ -16,13 +16,14 @@ import json
 import time # Used for sleep
 import datetime
 import shutil
+import argparse
 from random import randrange
 from datetime import date # Used for timestamp
 from typing import Dict
 
 
 
-# Set these to your liking. -jfadams1963
+# These will be set by your args -jfadams1963
 PAGES = 1
 IMAGES = 10
 
@@ -204,7 +205,7 @@ def download_images(obj: list, imgcnt: int):
 
 def main():
     res = search(terms, max_results=PAGES)
-    #print_image_URLs(res) # These all look good
+    #print_image_URLs(res) # For testing 
     download_images(res, IMAGES)
 # End main
 
