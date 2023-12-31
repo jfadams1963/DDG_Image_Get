@@ -39,6 +39,7 @@ def search(keywords: str, max_results=None) -> Dict:
     url = 'https://duckduckgo.com/'
     params = {'q': keywords}
 
+    # We'll use a random user agent, because it's fun. -jfadams1963
     with open('user_agents.txt') as f:
         user_agent = get_random_line(f)[:-2]
 
@@ -56,7 +57,7 @@ def search(keywords: str, max_results=None) -> Dict:
         sys.exit(1)
     #print('Obtained Token')
 
-    # Let's use random user-agents for fun. -jfadams1963
+    # Let's use random user-agents again, for fun. -jfadams1963
     with open('user_agents.txt') as f:
         user_agent = get_random_line(f)[:-2]
 
@@ -162,7 +163,7 @@ def download_images(obj: list, imgcnt: int):
     print("Created Directory:", dir)
 
     # Randomized user-agents might not be needed. I don't think that will be an
-    # issue with DDG. It's still fun to to though! -jfadams1963
+    # issue with DDG. It's still fun to do though! -jfadams1963
     for r in obj['results']:
         if imgcnt == 0:
             break
