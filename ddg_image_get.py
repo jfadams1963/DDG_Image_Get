@@ -16,7 +16,6 @@ import json
 import time # Used for sleep
 import datetime
 import shutil
-import argparse
 from random import randrange
 from datetime import date # Used for timestamp
 from typing import Dict
@@ -25,7 +24,7 @@ from typing import Dict
 
 # Set these as needed -jfadams1963
 PAGES = 1
-IMAGES = 10
+IMAGES = 50
 
 if len(sys.argv) != 2:
     print('Useage:')
@@ -144,6 +143,7 @@ def print_image_URLs(obj):
     # Print each URL per line: could be redirected to a file -jfadams1963
     for r in obj["results"]:
         print(r["image"])
+# End print_image_URLs
 
 
 # The download function
