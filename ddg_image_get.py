@@ -54,7 +54,7 @@ def search(keywords: str, max_results=None) -> Dict:
 
     if not searchObj:
         print('Token Parsing Failed')
-        return -1
+        sys.exit(1)
     #print('Obtained Token')
 
     # Let's use random user-agents for fun. -jfadams1963
@@ -141,7 +141,9 @@ def print_image_URLs(obj):
     But what we will do is download them all into a dir.
     -jfadams1963
     """
-    print([r["image"] for r in obj["results"]])
+    # Print each URL per line: could be redirected to a file -jfadams1963
+    for r in obj["results"]:
+        print(r["image"])
 
 
 # The download function
@@ -205,7 +207,7 @@ def download_images(obj: list, imgcnt: int):
 
 def main():
     res = search(terms, max_results=PAGES)
-    #print_image_URLs(res) # For testing 
+    #print_image_URLs(res) # For testing or dumping to a file -jfadams1963
     download_images(res, IMAGES)
 # End main
 
